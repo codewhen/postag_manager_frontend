@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
+import { posTag } from "../../shared/sharingVar";
 
 export default function Home() {
   const inputRef = useRef();
@@ -31,6 +32,8 @@ export default function Home() {
         setisLoading(false);
         return;
       }
+
+      // posTag = [];
       setisLoading(false);
 
       navigate("/sentence/", { state: response.data.output });

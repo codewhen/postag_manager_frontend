@@ -1,0 +1,1 @@
+exports.posTag = new Map();

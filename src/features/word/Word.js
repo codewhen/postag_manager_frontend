@@ -1,16 +1,18 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { posTag } from "../../shared/sharingVar";
 import WordTile from "./components/WordTile";
 
 export default function Word() {
   const { state } = useLocation();
   const navigator = useNavigate();
-  const { sentences, data } = state;
+  const { sentences, data, index } = state;
   const punctuation = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 
   let wordsPOS = data;
 
   const onDoneClick = (e) => {
+    posTag.set(index, wordsPOS);
     navigator("../sentence", { replace: true, state: sentences });
   };
 

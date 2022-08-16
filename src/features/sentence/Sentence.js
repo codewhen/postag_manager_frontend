@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
+import { posTag } from "../../shared/sharingVar";
 
 export default function Sentence() {
   const { state } = useLocation();
@@ -10,7 +11,7 @@ export default function Sentence() {
   let navigate = useNavigate();
   const output = state;
 
-  const onSubmit = async (input) => {
+  const onSubmit = async (input, index) => {
     try {
       setisLoading(true);
       let headers = new Headers();
@@ -32,7 +33,7 @@ export default function Sentence() {
       setisLoading(false);
 
       navigate("/word/", {
-        state: { data: response.data.output, sentences: output },
+        state: { data: response.data.output, sentences: output, index: index },
       });
     } catch (err) {
       setisLoading(false);
@@ -54,7 +55,7 @@ export default function Sentence() {
                   className="btn-select"
                   type="submit"
                   name="button"
-                  onClick={() => onSubmit(e)}
+                  onClick={() => onSubmit(e, i)}
                 >
                   Select
                 </button>
@@ -62,6 +63,16 @@ export default function Sentence() {
             </div>
           );
         })}
+      </div>
+      <div className="submitBtn">
+        <button
+          className={`dropbtn`}
+          onClick={() => {
+            console.log(posTag);
+          }}
+        >
+          Done
+        </button>
       </div>
     </div>
   );
