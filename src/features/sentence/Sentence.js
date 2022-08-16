@@ -52,12 +52,13 @@ export default function Sentence() {
               </div>
               <div className="right">
                 <button
-                  className="btn-select"
+                  className={`btn-select ${posTag.has(i) ? "filled" : ""}`}
                   type="submit"
                   name="button"
                   onClick={() => onSubmit(e, i)}
                 >
-                  Select
+                  {posTag.has(i) && "Selected"}
+                  {!posTag.has(i) && "Select"}
                 </button>
               </div>
             </div>

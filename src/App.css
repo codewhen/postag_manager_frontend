@@ -144,6 +144,10 @@ p {
   background-color: #646fd4;
 }
 
+.filled {
+  background-color: #e66465 !important;
+}
+
 .left {
   flex: 80;
 }
