@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
-export default function WordTile({ label }) {
+export default function WordTile({ label, posChange }) {
   const [isDropdownShown, setisDropdownShown] = useState(false);
+  const [posTag, setPosTag] = useState(null);
+
   const onDropDownClick = async (e) => {
     const allWithClass = Array.from(
       document.getElementsByClassName("dropdown-content")
@@ -12,6 +14,12 @@ export default function WordTile({ label }) {
     setisDropdownShown((e) => !e);
   };
 
+  const onButtonClick = async (posName) => {
+    setPosTag(posName);
+    setisDropdownShown(false);
+    posChange(posName);
+  };
+
   return (
     <div className="word-elements">
       <div className="word-left  word-card">
@@ -19,16 +27,20 @@ export default function WordTile({ label }) {
       </div>
       <div className="dropdown word-drop">
         <button
-          onclick="myFunction()"
-          class="dropbtn"
+          className={`dropbtn ${posTag == null ? "" : "added"}`}
           onClick={onDropDownClick}
         >
-          Dropdown{" "}
+          {posTag == null && "Click to add POS Tag"}
+          {posTag != null && `Click to edit (current: ${posTag})`}
         </button>
         <div className={`dropdown-content ${isDropdownShown ? "show" : ""}`}>
-          <button>Link 1</button>
-          <button>Link 2</button>
-          <button>Link 3</button>
+          {["N", "V", "NV"].map((e) => {
+            return (
+              <button key={e} onClick={() => onButtonClick(e)}>
+                {e}
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

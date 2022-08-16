@@ -197,6 +197,15 @@ p {
   border-radius: 20px;
 }
 
+.added {
+  background-color: #e66465 !important;
+}
+
+.submitBtn .dropbtn {
+  margin: 30px 5vw;
+  width: 90vw;
+}
+
 /* Dropdown button on hover  */
 .dropbtn:hover {
   background-color: #2980b9;

@@ -31,7 +31,9 @@ export default function Sentence() {
       }
       setisLoading(false);
 
-      navigate("/word/", { state: response.data.output });
+      navigate("/word/", {
+        state: { data: response.data.output, sentences: output },
+      });
     } catch (err) {
       setisLoading(false);
       console.log(err);
@@ -39,11 +41,11 @@ export default function Sentence() {
   };
 
   return (
-    <div class="bs">
-      <div class="elements">
-        {output.map((e) => {
+    <div className="bs">
+      <div className="elements">
+        {output.map((e, i) => {
           return (
-            <div className="card">
+            <div key={i} className="card">
               <div className="left">
                 <p>{e}</p>
               </div>

@@ -1,20 +1,41 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import WordTile from "./components/WordTile";
 
 export default function Word() {
   const { state } = useLocation();
-  const output = state;
+  const navigator = useNavigate();
+  const { sentences, data } = state;
   const punctuation = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+
+  let wordsPOS = data;
+
+  const onDoneClick = (e) => {
+    navigator("../sentence", { replace: true, state: sentences });
+  };
 
   return (
     <div className="bs">
-      {output.map((e) => {
+      {data.map((e, i) => {
         if (punctuation.includes(e)) {
-          return <></>;
+          return <div key={i}></div>;
         }
-        return <WordTile label={e} />;
+        return (
+          <WordTile
+            key={i}
+            label={e}
+            posChange={(pos) => {
+              wordsPOS[i] = wordsPOS[i].split("\\")[0] + "\\" + pos;
+              console.log(wordsPOS);
+            }}
+          />
+        );
       })}
+      <div className="submitBtn">
+        <button className={`dropbtn`} onClick={onDoneClick}>
+          Done
+        </button>
+      </div>
     </div>
   );
 }
