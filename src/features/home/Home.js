@@ -33,7 +33,7 @@ export default function Home() {
         return;
       }
 
-      // posTag = [];
+      posTag = new Map();
       setisLoading(false);
 
       navigate("/sentence/", { state: response.data.output });
