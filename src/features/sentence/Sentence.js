@@ -69,6 +69,7 @@ export default function Sentence() {
         <button
           className={`dropbtn`}
           onClick={() => {
+            navigate("../result", { state: output });
             console.log(posTag);
           }}
         >

@@ -240,3 +240,7 @@ p {
 .show {
   display: block;
 }
+
+.pd-10 {
+  padding: 10px 5vw;
+}

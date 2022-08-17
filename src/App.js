@@ -4,6 +4,7 @@ import Home from "./features/home/Home";
 import Sentence from "./features/sentence/Sentence";
 import Word from "./features/word/Word";
 import { Toaster } from "react-hot-toast";
+import Output from "./features/output/Output";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/sentence" element={<Sentence />} />
         <Route path="/word" element={<Word />} />
+        <Route path="/result" element={<Output />} />
       </Routes>
       <Toaster />
     </div>
