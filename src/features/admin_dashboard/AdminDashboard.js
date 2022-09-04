@@ -14,6 +14,9 @@ export default function AdminDashboard() {
   const onDocClick = (e) => {
     navigate("doc");
   };
+  const onTaggedClick = (e) => {
+    navigate("tagged");
+  };
   return (
     <div className={styles.root}>
       <div className={styles.a}>
@@ -69,7 +72,7 @@ export default function AdminDashboard() {
               alt="Tagged docs"
             />
             <div className={styles["card-content"]}>
-              <button className={styles["card-btn"]}>
+              <button onClick={onTaggedClick} className={styles["card-btn"]}>
                 Tagged Doc <span>&rarr;</span>
               </button>
             </div>
