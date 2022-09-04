@@ -1,0 +1,53 @@
+.out {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+}
+.in {
+  margin: 0 auto;
+  width: 60vw;
+  height: 50vh;
+  margin-top: 80px;
+  border-radius: 20px;
+  border-style: dotted;
+  border-color: red;
+}
+
+@media only screen and (max-width: 60em) {
+  .in {
+    margin-top: 20px;
+    width: 80vw;
+    height: 40vh;
+  }
+}
+
+.doc-button {
+  width: 60vw;
+  align-items: center;
+  padding: 1.5rem;
+  font-size: 2rem;
+  text-align: center;
+  color: #3363ff;
+  background-color: #d8e0fd;
+  border: none;
+  border-radius: 0.4rem;
+  transition: 0.2s;
+  cursor: pointer;
+  letter-spacing: 0.1rem;
+}
+
+.doc-button span {
+  margin-left: 1rem;
+  transition: 0.2s;
+}
+
+.doc-button:hover,
+.doc-button:active {
+  background-color: #c2cffc;
+}
+
+.doc-button:hover span,
+.doc-button:active span {
+  margin-left: 1.5rem;
+}

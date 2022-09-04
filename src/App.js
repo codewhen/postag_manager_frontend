@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import Output from "./features/output/Output";
 import AdminDashboard from "./features/admin_dashboard/AdminDashboard";
 import AdminUserEdit from "./features/admin_user_edit/AdminUserEdit";
+import AdminDoc from "./features/admin_doc/AdminDoc";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/result" element={<Output />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/user" element={<AdminUserEdit />} />
+        <Route path="/admin/doc" element={<AdminDoc />} />
       </Routes>
       <Toaster />
     </div>

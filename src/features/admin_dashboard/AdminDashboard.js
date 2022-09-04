@@ -11,6 +11,9 @@ export default function AdminDashboard() {
   const onUserClick = (e) => {
     navigate("user");
   };
+  const onDocClick = (e) => {
+    navigate("doc");
+  };
   return (
     <div className={styles.root}>
       <div className={styles.a}>
@@ -34,8 +37,8 @@ export default function AdminDashboard() {
                 alt="Grand Canyon"
               />
               <div className={styles["card-content"]}>
-                <button className={styles["card-btn"]}>
-                  <Link to="/doc">Doc </Link> <span>&rarr;</span>
+                <button onClick={onDocClick} className={styles["card-btn"]}>
+                  <Link to="doc">Doc </Link> <span>&rarr;</span>
                 </button>
               </div>
             </div>
