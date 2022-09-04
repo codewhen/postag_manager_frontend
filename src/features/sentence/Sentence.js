@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { Portal } from "react-portal";
 import { useLocation, useNavigate } from "react-router-dom";
+import { BounceLoader } from "react-spinners";
 import { baseUrl } from "../../core/config/config";
 import { posTag } from "../../shared/sharingVar";
 
@@ -76,6 +78,13 @@ export default function Sentence() {
           Done
         </button>
       </div>
+      {isLoading && (
+        <Portal node={document && document.getElementById("loader")}>
+          <div className="loader-context">
+            <BounceLoader color={"#ffffff"} loading={true} size={60} />
+          </div>
+        </Portal>
+      )}
     </div>
   );
 }

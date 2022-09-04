@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { Portal } from "react-portal";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
 import { posTag } from "../../shared/sharingVar";
+import { BounceLoader } from "react-spinners";
 
 export default function Home() {
   const inputRef = useRef();
@@ -56,6 +58,13 @@ export default function Home() {
             </button>
           </div>
         </div>
+        {isLoading && (
+          <Portal node={document && document.getElementById("loader")}>
+            <div className="loader-context">
+              <BounceLoader color={"#ffffff"} loading={true} size={60} />
+            </div>
+          </Portal>
+        )}
       </div>
     </>
   );
