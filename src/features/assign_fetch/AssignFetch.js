@@ -29,7 +29,7 @@ export default function AssignFetch() {
       }
       navigate("/sentence/", {
         state: response.data.docs.map((e) => {
-          return e.input;
+          return e;
         }),
       });
     } catch (err) {

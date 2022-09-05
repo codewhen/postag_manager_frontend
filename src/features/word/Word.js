@@ -1,6 +1,8 @@
+import axios from "axios";
 import React from "react";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
+import { baseUrl } from "../../core/config/config";
 import { posTag } from "../../shared/sharingVar";
 import WordTile from "./components/WordTile";
 
@@ -20,6 +22,13 @@ export default function Word() {
       return;
     }
     posTag.set(index, wordsPOS);
+    axios.post(
+      `${baseUrl}doc/tag/${sentences[index]._id}`,
+      {
+        output: wordsPOS.join(" "),
+      },
+      {}
+    );
     navigator("../sentence", { replace: true, state: sentences });
   };
 

@@ -11,7 +11,11 @@ export default function Sentence() {
   const { state } = useLocation();
   const [isLoading, setisLoading] = useState(false);
   let navigate = useNavigate();
-  const output = state;
+  // const { input: output } = state;
+
+  const output = state.map((e) => {
+    return e.input;
+  });
 
   const onSubmit = async (input, index) => {
     try {
@@ -21,7 +25,7 @@ export default function Sentence() {
       headers.append("Content-Type", "application/json");
       headers.append("Accept", "application/json");
       headers.append("Access-Control-Request-Headers", "*");
-      const response = await axios.get(`${baseUrl}doc/word-tokenisation`, {
+      const response = await axios.post(`${baseUrl}doc/word-tokenisation`, {
         header: headers,
         input: input,
       });
@@ -37,7 +41,7 @@ export default function Sentence() {
       navigate("/word/", {
         state: {
           data: response.data[0].output,
-          sentences: output,
+          sentences: state,
           index: index,
         },
       });
