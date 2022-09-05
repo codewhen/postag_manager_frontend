@@ -21,7 +21,7 @@ export default function Sentence() {
       headers.append("Content-Type", "application/json");
       headers.append("Accept", "application/json");
       headers.append("Access-Control-Request-Headers", "*");
-      const response = await axios.post(`${baseUrl}/word-tokenisation`, {
+      const response = await axios.get(`${baseUrl}doc/word-tokenisation`, {
         header: headers,
         input: input,
       });
@@ -35,7 +35,11 @@ export default function Sentence() {
       setisLoading(false);
 
       navigate("/word/", {
-        state: { data: response.data.output, sentences: output, index: index },
+        state: {
+          data: response.data[0].output,
+          sentences: output,
+          index: index,
+        },
       });
     } catch (err) {
       setisLoading(false);
