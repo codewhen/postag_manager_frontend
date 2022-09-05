@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { Portal } from "react-portal";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
-import { posTag } from "../../shared/sharingVar";
 import { BounceLoader } from "react-spinners";
 
 export default function Home() {
@@ -35,7 +34,6 @@ export default function Home() {
         return;
       }
 
-      posTag = new Map();
       setisLoading(false);
 
       navigate("/sentence/", { state: response.data.output });
