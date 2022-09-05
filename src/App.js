@@ -9,6 +9,7 @@ import AdminDashboard from "./features/admin_dashboard/AdminDashboard";
 import AdminUserEdit from "./features/admin_user_edit/AdminUserEdit";
 import AdminDoc from "./features/admin_doc/AdminDoc";
 import AdminTaggedDoc from "./features/admin_tagged_doc/AdminTaggedDoc";
+import AdminDocList from "./features/admin_doc_list/AdminDocList";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/admin/user" element={<AdminUserEdit />} />
         <Route path="/admin/doc" element={<AdminDoc />} />
         <Route path="/admin/tagged/:id" element={<AdminTaggedDoc />} />
+        <Route path="/admin/tagged" element={<AdminDocList />} />
       </Routes>
       <Toaster />
     </div>
