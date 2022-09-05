@@ -1,19 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
 
 export default function AdminTaggedDoc(props) {
-  useEffect(() => {
-    getPossed();
-  }, []);
-
   const [possedDoc, setPossedDoc] = useState([]);
 
   const { id } = useParams();
 
-  const getPossed = async () => {
+  const getPossed = useCallback(async () => {
     try {
       const response = await axios.post(`${baseUrl}doc/rearrange/${id}`);
       console.log(response);
@@ -26,7 +22,11 @@ export default function AdminTaggedDoc(props) {
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    getPossed();
+  }, [getPossed]);
 
   return (
     <>
