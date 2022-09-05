@@ -12,12 +12,13 @@ import AdminTaggedDoc from "./features/admin_tagged_doc/AdminTaggedDoc";
 import AdminDocList from "./features/admin_doc_list/AdminDocList";
 import AdminUserCreate from "./features/admin_user_create/AdminUserCreate";
 import Login from "./features/login/Login";
+import AssignFetch from "./features/assign_fetch/AssignFetch";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<AssignFetch />} />
         <Route path="/sentence" element={<Sentence />} />
         <Route path="/word" element={<Word />} />
         <Route path="/result" element={<Output />} />
