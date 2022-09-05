@@ -1,0 +1,47 @@
+.contact-form {
+  padding: 20px 0px 20px 0;
+}
+
+.input {
+  width: 60vw;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.label {
+  width: 60vw;
+  font-size: 2rem;
+}
+
+.form-button {
+  width: 60vw;
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background-color: #45a049;
+}
+
+.div-form {
+  border-radius: 5px;
+  padding: 30px 70px;
+  width: 70vw;
+  margin: auto;
+  background-color: #e2dcc8;
+}
+
+@media (max-width: 450px) {
+  .div-form {
+    padding: 20px;
+  }
+}

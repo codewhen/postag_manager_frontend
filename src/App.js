@@ -10,6 +10,7 @@ import AdminUserList from "./features/admin_user_list/AdminUserList";
 import AdminDoc from "./features/admin_doc/AdminDoc";
 import AdminTaggedDoc from "./features/admin_tagged_doc/AdminTaggedDoc";
 import AdminDocList from "./features/admin_doc_list/AdminDocList";
+import AdminUserCreate from "./features/admin_user_create/AdminUserCreate";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/result" element={<Output />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/user" element={<AdminUserList />} />
+        <Route path="/admin/user/new" element={<AdminUserCreate />} />
         <Route path="/admin/doc" element={<AdminDoc />} />
         <Route path="/admin/tagged/:id" element={<AdminTaggedDoc />} />
         <Route path="/admin/tagged" element={<AdminDocList />} />
