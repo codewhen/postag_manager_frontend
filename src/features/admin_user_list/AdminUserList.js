@@ -1,16 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import userImage from "../../assets/images/rome.jpg";
 import { baseUrl } from "../../core/config/config";
-import styles from "./AdminUserEdit.module.css";
+import styles from "./AdminUserList.module.css";
 
-export default function AdminUserEdit() {
+export default function AdminUserList() {
   useEffect(() => {
     getAllUsers();
   }, []);
 
   const [users, setUsers] = useState([]);
+
+  const navigate = useNavigate();
 
   const getAllUsers = async () => {
     try {
@@ -62,7 +65,10 @@ export default function AdminUserEdit() {
         <div className={styles.card}>
           <img className={styles["card-img"]} src={userImage} alt="User" />
           <div className={styles["card-content"]}>
-            <button className={styles["card-btn"]}>
+            <button
+              onClick={() => navigate("new")}
+              className={styles["card-btn"]}
+            >
               Add user <span>&rarr;</span>
             </button>
           </div>
