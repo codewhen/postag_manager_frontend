@@ -39,20 +39,21 @@ export default function AdminDoc() {
         toast.error(response.data.message);
         return;
       }
-      toast.loading("assigning");
 
-      const responseAssign = await axios.get(
-        `${baseUrl}doc/assign/${response.data.doc._id}`,
-        {
+      toast.promise(
+        axios.get(`${baseUrl}doc/assign/${response.data.doc._id}`, {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+        }),
+        {
+          loading: "Assigning...",
+          success: <b>Assinged!</b>,
+          error: <b>Could not assign.</b>,
         }
       );
-
-      toast.success("success");
 
       navigate("/admin", { replace: true });
     } catch (err) {
