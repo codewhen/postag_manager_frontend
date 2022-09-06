@@ -42,7 +42,7 @@ export default function AdminDoc() {
 
       toast.success("Saved the doc!!");
 
-      toast.promise(
+      await toast.promise(
         axios.get(`${baseUrl}doc/assign/${response.data.doc._id}`, {
           headers: {
             "Content-Type": "application/json",

@@ -43,6 +43,22 @@ export default function Sentence() {
         return;
       }
       setisLoading(false);
+
+      await toast.promise(
+        axios.get(`${baseUrl}doc/assign/self`, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }),
+        {
+          loading: "Assigning...",
+          success: <b>Assinged!</b>,
+          error: <b>Could not assign.</b>,
+        }
+      );
+
       navigate("/");
       posTag.clear();
     } catch (err) {
