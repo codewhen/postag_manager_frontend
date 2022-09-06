@@ -13,6 +13,7 @@ import AdminDocList from "./features/admin_doc_list/AdminDocList";
 import AdminUserCreate from "./features/admin_user_create/AdminUserCreate";
 import Login from "./features/login/Login";
 import AssignFetch from "./features/assign_fetch/AssignFetch";
+import AdminAnalytics from "./features/admin_analytics/AdminAnalytics";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/admin/doc" element={<AdminDoc />} />
         <Route path="/admin/tagged/:id" element={<AdminTaggedDoc />} />
         <Route path="/admin/tagged" element={<AdminDocList />} />
+        <Route path="/admin/analytics" element={<AdminAnalytics />} />
         <Route path="/login" element={<Login />} />
       </Routes>
       <Toaster />

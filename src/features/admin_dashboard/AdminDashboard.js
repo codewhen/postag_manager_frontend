@@ -17,6 +17,9 @@ export default function AdminDashboard() {
   const onTaggedClick = (e) => {
     navigate("tagged");
   };
+  const onAnalyticsClick = (e) => {
+    navigate("analytics");
+  };
   useEffect(() => {
     const isAdmin = localStorage.getItem("isAdmin");
     console.log(isAdmin);
@@ -62,8 +65,11 @@ export default function AdminDashboard() {
                 alt="Analytics"
               />
               <div className={styles["card-content"]}>
-                <button className={styles["card-btn"]}>
-                  <a href="analytics.html">Analytics </a> <span>&rarr;</span>
+                <button
+                  onClick={onAnalyticsClick}
+                  className={styles["card-btn"]}
+                >
+                  <Link to="analytics">Analytics </Link> <span>&rarr;</span>
                 </button>
               </div>
             </div>
