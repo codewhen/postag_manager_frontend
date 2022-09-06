@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./AdminDashboard.module.css";
 import userImage from "../../assets/images/rome.jpg";
 import docImage from "../../assets/images/grand-canyon.jpg";
@@ -17,6 +17,14 @@ export default function AdminDashboard() {
   const onTaggedClick = (e) => {
     navigate("tagged");
   };
+  useEffect(() => {
+    const isAdmin = localStorage.getItem("isAdmin");
+    console.log(isAdmin);
+    if (isAdmin !== "true") {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   return (
     <div className={styles.root}>
       <div className={styles.a}>
