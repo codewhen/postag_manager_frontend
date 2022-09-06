@@ -17,7 +17,13 @@ export default function AdminUserList() {
 
   const getAllUsers = async () => {
     try {
-      const response = await axios.get(`${baseUrl}users/all`);
+      const response = await axios.get(`${baseUrl}users/all`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       console.log(response);
       if (response.data.message) {
         toast.error(response.data.message);
