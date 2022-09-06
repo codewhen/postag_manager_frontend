@@ -17,6 +17,30 @@ export default function Sentence() {
     return e.input;
   });
 
+  const onDone = async () => {
+    try {
+      setisLoading(true);
+      const response = await axios.post(`${baseUrl}doc/markedReady`, {
+        ids: state.map((e) => {
+          return e._id;
+        }),
+      });
+      console.log(response);
+
+      if (response.data.message) {
+        toast.error(response.data.message);
+        setisLoading(false);
+        return;
+      }
+      setisLoading(false);
+      navigate("/");
+      posTag.clear();
+    } catch (err) {
+      console.log(err);
+      setisLoading(false);
+    }
+  };
+
   const onSubmit = async (input, index) => {
     try {
       setisLoading(true);
@@ -76,13 +100,7 @@ export default function Sentence() {
         })}
       </div>
       <div className="submitBtn">
-        <button
-          className={`dropbtn`}
-          onClick={() => {
-            navigate("../result", { state: output });
-            console.log(posTag);
-          }}
-        >
+        <button className={`dropbtn`} onClick={onDone}>
           Done
         </button>
       </div>

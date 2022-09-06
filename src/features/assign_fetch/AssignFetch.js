@@ -1,19 +1,17 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Portal } from "react-portal";
 import { useNavigate } from "react-router-dom";
 import { BounceLoader } from "react-spinners";
 import { baseUrl } from "../../core/config/config";
+import styles from "./AssignFetch.module.css";
 
 export default function AssignFetch() {
-  useEffect(() => {
-    fetchAssigned();
-  }, []);
-
   const navigate = useNavigate();
+  const [isEmpty, setIsEmpty] = useState(false);
 
-  const fetchAssigned = async () => {
+  const fetchAssigned = useCallback(async () => {
     try {
       const response = await axios.get(`${baseUrl}doc/assigned/self`, {
         headers: {
@@ -27,23 +25,36 @@ export default function AssignFetch() {
         toast.error(response.data.message);
         return;
       }
-      navigate("/sentence/", {
-        state: response.data.docs.map((e) => {
-          return e;
-        }),
-      });
+      if (response.data.docs.length === 0) {
+        setIsEmpty(true);
+      } else {
+        navigate("/sentence/", {
+          state: response.data.docs.map((e) => {
+            return e;
+          }),
+        });
+      }
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [navigate]);
+
+  useEffect(() => {
+    fetchAssigned();
+  }, [fetchAssigned]);
 
   return (
     <>
-      <Portal node={document && document.getElementById("loader")}>
-        <div className="loader-context">
-          <BounceLoader color={"#ffffff"} loading={true} size={60} />
-        </div>
-      </Portal>
+      {isEmpty && (
+        <h3 className={styles["center-label"]}>No assigned task!!</h3>
+      )}
+      {!isEmpty && (
+        <Portal node={document && document.getElementById("loader")}>
+          <div className="loader-context">
+            <BounceLoader color={"#ffffff"} loading={true} size={60} />
+          </div>
+        </Portal>
+      )}
     </>
   );
 }
