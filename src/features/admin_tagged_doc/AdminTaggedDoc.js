@@ -1,13 +1,15 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
 
 export default function AdminTaggedDoc(props) {
   const [possedDoc, setPossedDoc] = useState([]);
 
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const getPossed = useCallback(async () => {
     try {
@@ -25,8 +27,13 @@ export default function AdminTaggedDoc(props) {
   }, [id]);
 
   useEffect(() => {
+    const isAdmin = localStorage.getItem("isAdmin");
+    console.log(isAdmin);
+    if (isAdmin !== "true") {
+      navigate("/login");
+    }
     getPossed();
-  }, [getPossed]);
+  }, [getPossed, navigate]);
 
   return (
     <>

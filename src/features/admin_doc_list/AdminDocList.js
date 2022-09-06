@@ -5,11 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
 
 export default function AdminDocList() {
-  useEffect(() => {
-    getAllDocs();
-  }, []);
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAdmin = localStorage.getItem("isAdmin");
+    console.log(isAdmin);
+    if (isAdmin !== "true") {
+      navigate("/login");
+    }
+    getAllDocs();
+  }, [navigate]);
 
   const [docs, setDocs] = useState([]);
 

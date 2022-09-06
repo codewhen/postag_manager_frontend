@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
@@ -8,6 +8,15 @@ import styles from "./AdminUserCreate.module.css";
 export default function AdminUserCreate() {
   const formRef = useRef();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAdmin = localStorage.getItem("isAdmin");
+    console.log(isAdmin);
+    if (isAdmin !== "true") {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   const onCreate = async (e) => {
     try {
       e.preventDefault();

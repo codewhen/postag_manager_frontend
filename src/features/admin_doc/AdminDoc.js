@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
@@ -9,6 +9,14 @@ export default function AdminDoc() {
   const [file, setFile] = useState();
   const [fileName, setFileName] = useState();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAdmin = localStorage.getItem("isAdmin");
+    console.log(isAdmin);
+    if (isAdmin !== "true") {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const publish = async (e) => {
     try {

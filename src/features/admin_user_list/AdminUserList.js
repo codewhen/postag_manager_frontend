@@ -7,13 +7,18 @@ import { baseUrl } from "../../core/config/config";
 import styles from "./AdminUserList.module.css";
 
 export default function AdminUserList() {
+  const navigate = useNavigate();
+
   useEffect(() => {
+    const isAdmin = localStorage.getItem("isAdmin");
+    console.log(isAdmin);
+    if (isAdmin !== "true") {
+      navigate("/login");
+    }
     getAllUsers();
-  }, []);
+  }, [navigate]);
 
   const [users, setUsers] = useState([]);
-
-  const navigate = useNavigate();
 
   const getAllUsers = async () => {
     try {
