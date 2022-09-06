@@ -41,8 +41,12 @@ export default function AssignFetch() {
   }, [navigate]);
 
   useEffect(() => {
+    if (localStorage.getItem("isAdmin") === "true") {
+      navigate("/admin");
+      return;
+    }
     fetchAssigned();
-  }, [fetchAssigned]);
+  }, [fetchAssigned, navigate]);
 
   return (
     <>

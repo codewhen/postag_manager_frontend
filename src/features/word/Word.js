@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
@@ -9,8 +9,16 @@ import WordTile from "./components/WordTile";
 export default function Word() {
   const { state } = useLocation();
   const navigator = useNavigate();
-  const { sentences, data, index } = state;
+  const { sentences, data, index } =
+    state == null ? { sentences: [], data: [], index: 0 } : state;
   const punctuation = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+
+  useEffect(() => {
+    if (localStorage.getItem("isAdmin") === "true") {
+      navigator("/admin");
+      return;
+    }
+  }, [navigator]);
 
   let wordsPOS = data;
   let visited = data.map((e) => false);

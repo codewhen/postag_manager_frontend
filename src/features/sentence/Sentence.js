@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Portal } from "react-portal";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -13,9 +13,19 @@ export default function Sentence() {
   let navigate = useNavigate();
   // const { input: output } = state;
 
-  const output = state.map((e) => {
-    return e.input;
-  });
+  useEffect(() => {
+    if (localStorage.getItem("isAdmin") === "true") {
+      navigate("/admin");
+      return;
+    }
+  }, [navigate]);
+
+  const output =
+    state == null
+      ? []
+      : state.map((e) => {
+          return e.input;
+        });
 
   const onDone = async () => {
     try {
