@@ -32,7 +32,7 @@ export default function AdminDoc() {
         return;
       }
       toast.success("success");
-      navigate("/", { replace: true });
+      navigate("/admin", { replace: true });
     } catch (err) {
       console.log(err);
     }
