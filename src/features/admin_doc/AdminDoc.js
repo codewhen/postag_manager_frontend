@@ -40,6 +40,8 @@ export default function AdminDoc() {
         return;
       }
 
+      toast.success("Saved the doc!!");
+
       toast.promise(
         axios.get(`${baseUrl}doc/assign/${response.data.doc._id}`, {
           headers: {
