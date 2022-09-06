@@ -42,7 +42,7 @@ export default function Login() {
       <div className={styles.session}>
         <div className={styles.left}>
           <svg
-            enable-background="new 0 0 300 302.5"
+            enableBackground="new 0 0 300 302.5"
             version="1.1"
             viewBox="0 0 300 302.5"
             xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +57,7 @@ export default function Login() {
         <form
           onSubmit={onLogin}
           className={styles["log-in"]}
-          autocomplete="off"
+          autoComplete="off"
         >
           <h4>
             We are <span>KUxGU NLP System</span>
@@ -70,12 +70,12 @@ export default function Login() {
               type="email"
               name="email"
               id="email"
-              autocomplete="off"
+              autoComplete="off"
             />
-            <label for="email">Email:</label>
+            <label htmlFor="email">Email:</label>
             <div className={styles.icon}>
               <svg
-                enable-background="new 0 0 100 100"
+                enableBackground="new 0 0 100 100"
                 version="1.1"
                 viewBox="0 0 100 100"
                 xmlns="http://www.w3.org/2000/svg"
@@ -95,12 +95,12 @@ export default function Login() {
               type="password"
               name="password"
               id="password"
-              autocomplete="off"
+              autoComplete="off"
             />
-            <label for="password">Password:</label>
+            <label htmlFor="password">Password:</label>
             <div className={styles.icon}>
               <svg
-                enable-background="new 0 0 24 24"
+                enableBackground="new 0 0 24 24"
                 version="1.1"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
@@ -122,9 +122,7 @@ export default function Login() {
               </svg>
             </div>
           </div>
-          <button type="submit" onClick="return false;">
-            Log in
-          </button>
+          <button type="submit">Log in</button>
         </form>
       </div>
     </div>
