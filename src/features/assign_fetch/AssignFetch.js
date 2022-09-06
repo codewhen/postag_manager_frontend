@@ -13,6 +13,7 @@ export default function AssignFetch() {
 
   const fetchAssigned = useCallback(async () => {
     try {
+      setIsEmpty(false);
       const response = await axios.get(`${baseUrl}doc/assigned/self`, {
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +47,12 @@ export default function AssignFetch() {
   return (
     <>
       {isEmpty && (
-        <h3 className={styles["center-label"]}>No assigned task!!</h3>
+        <>
+          <h3 className={styles["center-label"]}>No assigned task!!</h3>
+          <button onClick={fetchAssigned} className={styles.refresh}>
+            &#8634;
+          </button>
+        </>
       )}
       {!isEmpty && (
         <Portal node={document && document.getElementById("loader")}>
