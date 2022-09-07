@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { Portal } from "react-portal";
 import { useNavigate, useParams } from "react-router-dom";
 import { BounceLoader } from "react-spinners";
+import CustomAppBar from "../../core/components/appbar/AppBar";
 import { baseUrl } from "../../core/config/config";
 
 export default function AdminTaggedDoc(props) {
@@ -43,13 +44,33 @@ export default function AdminTaggedDoc(props) {
 
   return (
     <>
+      <CustomAppBar />
       {possedDoc.map((e) => {
         return (
           <>
-            <h2>{e.doc.docName}</h2>
-            <span>input</span>
+            <h2
+              style={{
+                margin: "8px 18px",
+                textDecoration: "underline",
+              }}
+            >
+              {e.doc.docName}
+            </h2>
+            <span
+              style={{
+                margin: "0px 18px",
+              }}
+            >
+              input
+            </span>
             <p>{e.inputStr}</p>
-            <span>output</span>
+            <span
+              style={{
+                margin: "0px 18px",
+              }}
+            >
+              output
+            </span>
             <p>{e.outputStr}</p>
           </>
         );
