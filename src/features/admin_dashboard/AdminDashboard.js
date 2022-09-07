@@ -4,9 +4,10 @@ import docImage from "../../assets/images/doc.png";
 import analyticsImage from "../../assets/images/analytics.jpg";
 import taggedDocImage from "../../assets/images/pos.png";
 import { useNavigate } from "react-router-dom";
-import { AppBar, Button, Grid, Toolbar, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import CardButton from "./components/CardButton/CardButton";
 import { Box } from "@mui/system";
+import CustomAppBar from "../../core/components/appbar/AppBar";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -22,10 +23,6 @@ export default function AdminDashboard() {
   const onAnalyticsClick = (e) => {
     navigate("analytics");
   };
-  const onLogout = (e) => {
-    localStorage.clear();
-    navigate("/login");
-  };
   useEffect(() => {
     const isAdmin = localStorage.getItem("isAdmin");
     console.log(isAdmin);
@@ -36,16 +33,7 @@ export default function AdminDashboard() {
 
   return (
     <>
-      <AppBar position="sticky">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Dashboard
-          </Typography>
-          <Button onClick={onLogout} color="inherit">
-            Logout
-          </Button>
-        </Toolbar>
-      </AppBar>
+      <CustomAppBar />
       <Box
         sx={{
           height: 18,
