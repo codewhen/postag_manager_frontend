@@ -20,7 +20,6 @@ export default function AdminAnalytics() {
         return;
       }
 
-      toast.success("Saved the doc!!");
       setanalytics(response.data.analytics);
     } catch (err) {
       console.log(err);
@@ -35,10 +34,15 @@ export default function AdminAnalytics() {
   return (
     <div>
       {analytics.map((e) => {
+        if (!e || !e._id) {
+          return <></>;
+        }
+
         return (
           <>
             <h2 className={styles.name}>
-              {e._id.user.name} ({e.input.length})
+              {e && e._id && e._id.user ? e._id.user.name : "Unknown user"} (
+              {e.input.length})
             </h2>
             {e.input.map((e) => {
               return (
