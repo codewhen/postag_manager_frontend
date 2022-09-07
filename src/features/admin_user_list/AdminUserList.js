@@ -1,4 +1,4 @@
-import { Button, Card, CardMedia, Grid, Typography } from "@mui/material";
+import { Button, Card, CardMedia, Fab, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import { BounceLoader } from "react-spinners";
 import userImage from "../../assets/images/rome.jpg";
 import CustomAppBar from "../../core/components/appbar/AppBar";
 import { baseUrl } from "../../core/config/config";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function AdminUserList() {
   const navigate = useNavigate();
@@ -79,6 +80,21 @@ export default function AdminUserList() {
   return (
     <>
       <CustomAppBar />
+      <Fab
+        style={{
+          margin: 0,
+          top: "auto",
+          right: 20,
+          bottom: 20,
+          left: "auto",
+          position: "fixed",
+        }}
+        color="primary"
+        aria-label="add"
+        onClick={() => navigate("new")}
+      >
+        <AddIcon />
+      </Fab>
       <Grid container>
         {users.map((e) => {
           return (
