@@ -1,9 +1,11 @@
+import { Box, Button, Container } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
-import styles from "./AdminDoc.module.css";
+import UploadIcon from "@mui/icons-material/Upload";
+import CustomAppBar from "../../core/components/appbar/AppBar";
 
 export default function AdminDoc() {
   const [file, setFile] = useState();
@@ -42,7 +44,7 @@ export default function AdminDoc() {
 
       toast.success("Saved the doc!!");
 
-      await toast.promise(
+      toast.promise(
         axios.get(`${baseUrl}doc/assign/${response.data.doc._id}`, {
           headers: {
             "Content-Type": "application/json",
@@ -92,34 +94,63 @@ export default function AdminDoc() {
   };
 
   return (
-    <div className={styles.out}>
-      <div
-        className={styles.in}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-          alignItems: "center",
+    <>
+      <CustomAppBar />
+      <Box
+        sx={{
+          height: 30,
         }}
-      >
-        <label
+      />
+      <Container>
+        <Box
+          sx={{
+            minHeight: 100,
+            border: "1px dashed grey",
+            paddingTop: 3,
+            paddingBottom: 3,
+          }}
           style={{
-            padding: "8px 16px",
-            background: "white",
-            borderRadius: 10,
-            cursor: "pointer",
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          {!file && <>Upload file for POS Tag &rarr;</>}
-          {file && `"${fileName}" is selected. Click to change`}
-          <input type="file" accept=".txt" hidden onChange={handleFileChange} />
-        </label>
-      </div>
-      <div className={styles["card-content"]}>
-        <button onClick={publish} className={styles["doc-button"]}>
-          Publish<span>&uarr;</span>
-        </button>
-      </div>
-    </div>
+          <Button component="label" startIcon={<UploadIcon />}>
+            {file && `"${fileName}" is selected. Click to change`}
+            {!file && "Upload file for POS Tag"}
+            <input
+              type="file"
+              accept=".txt"
+              hidden
+              onChange={handleFileChange}
+            />
+          </Button>
+          <span
+            style={{
+              fontSize: 14,
+              color: "grey",
+            }}
+          >
+            Each line will be automatically assigned to users
+          </span>
+        </Box>
+        <Box
+          sx={{
+            height: 30,
+          }}
+        />
+        <Button
+          sx={{
+            height: 50,
+          }}
+          onClick={publish}
+          variant="contained"
+          fullWidth
+        >
+          publish
+        </Button>
+      </Container>
+    </>
   );
 }
