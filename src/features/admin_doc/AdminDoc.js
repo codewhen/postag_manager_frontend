@@ -61,6 +61,7 @@ export default function AdminDoc() {
 
       navigate("/admin", { replace: true });
     } catch (err) {
+      toast.error("Error publishing");
       console.log(err);
     }
   };

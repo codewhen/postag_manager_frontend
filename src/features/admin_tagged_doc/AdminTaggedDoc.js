@@ -29,6 +29,7 @@ export default function AdminTaggedDoc(props) {
       setPossedDoc([response.data]);
     } catch (err) {
       console.log(err);
+      toast.error("Error fetching");
       setisLoading(false);
     }
   }, [id]);

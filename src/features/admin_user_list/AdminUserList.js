@@ -44,6 +44,7 @@ export default function AdminUserList() {
       }
       setUsers(response.data.users);
     } catch (err) {
+      toast.error("Error fetching");
       setisLoading(false);
       console.log(err);
     }
@@ -72,6 +73,7 @@ export default function AdminUserList() {
         return filteredArray;
       });
     } catch (err) {
+      toast.error("Error deleting");
       setisLoading(false);
       console.log(err);
     }

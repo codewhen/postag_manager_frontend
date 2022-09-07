@@ -44,6 +44,7 @@ export default function AdminDocList() {
       }
       setDocs(response.data.docs);
     } catch (err) {
+      toast.error("Error fetching");
       setisLoading(false);
       console.log(err);
     }

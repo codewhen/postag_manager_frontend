@@ -1,4 +1,4 @@
-import { Button, Input, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -54,6 +54,7 @@ export default function AdminUserCreate() {
       toast.success(`Successfully created new user`);
       navigate("../admin");
     } catch (err) {
+      toast.error("Error creating new user");
       setisLoading(false);
       console.log(err);
     }

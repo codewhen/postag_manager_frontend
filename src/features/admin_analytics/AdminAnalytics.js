@@ -28,6 +28,7 @@ export default function AdminAnalytics() {
       }
       setanalytics(response.data.analytics);
     } catch (err) {
+      toast.error("Error fetching");
       setisLoading(false);
       console.log(err);
     }

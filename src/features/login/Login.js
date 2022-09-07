@@ -24,11 +24,14 @@ export default function Login() {
         email: email,
         password: password,
       });
+      console.log("hello");
+
       setisloading(false);
 
       console.log(response);
 
       if (response.status !== 200 && response.data.message) {
+        console.log("toast");
         toast.error(response.data.message);
         return;
       }
@@ -42,6 +45,7 @@ export default function Login() {
       navigate("/");
     } catch (err) {
       setisloading(false);
+      toast.error(`${err.response.data.message}`);
       console.log(err);
     }
   };

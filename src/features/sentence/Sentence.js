@@ -62,6 +62,7 @@ export default function Sentence() {
       navigate("/");
       posTag.clear();
     } catch (err) {
+      toast.error("Error processing");
       console.log(err);
       setisLoading(false);
     }
@@ -97,6 +98,7 @@ export default function Sentence() {
       });
     } catch (err) {
       setisLoading(false);
+      toast.error("Error processing");
       console.log(err);
     }
   };

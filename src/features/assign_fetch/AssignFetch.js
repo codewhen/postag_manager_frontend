@@ -36,6 +36,7 @@ export default function AssignFetch() {
         });
       }
     } catch (err) {
+      toast.error("Error fetching");
       console.log(err);
     }
   }, [navigate]);

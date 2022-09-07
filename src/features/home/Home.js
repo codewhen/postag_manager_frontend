@@ -38,6 +38,7 @@ export default function Home() {
 
       navigate("/sentence/", { state: response.data.output });
     } catch (err) {
+      toast.error("Error submitting");
       setisLoading(false);
       console.log(err);
     }
