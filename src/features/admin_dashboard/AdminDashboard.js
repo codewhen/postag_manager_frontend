@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
-import styles from "./AdminDashboard.module.css";
-import userImage from "../../assets/images/rome.jpg";
-import docImage from "../../assets/images/grand-canyon.jpg";
-import analyticsImage from "../../assets/images/maldives.jpg";
-import taggedDocImage from "../../assets/images/camera.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import userImage from "../../assets/images/user.png";
+import docImage from "../../assets/images/doc.png";
+import analyticsImage from "../../assets/images/analytics.jpg";
+import taggedDocImage from "../../assets/images/pos.png";
+import { useNavigate } from "react-router-dom";
+import { AppBar, Button, Grid, Toolbar, Typography } from "@mui/material";
+import CardButton from "./components/CardButton/CardButton";
+import { Box } from "@mui/system";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -20,6 +22,10 @@ export default function AdminDashboard() {
   const onAnalyticsClick = (e) => {
     navigate("analytics");
   };
+  const onLogout = (e) => {
+    localStorage.clear();
+    navigate("/login");
+  };
   useEffect(() => {
     const isAdmin = localStorage.getItem("isAdmin");
     console.log(isAdmin);
@@ -29,70 +35,56 @@ export default function AdminDashboard() {
   }, [navigate]);
 
   return (
-    <div className={styles.root}>
-      <div className={styles.a}>
-        <div className={styles.grid}>
-          <div className={styles["grid-item"]}>
-            <div className={styles.card}>
-              <img className={styles["card-img"]} src={userImage} alt="User" />
-              <div className={styles["card-content"]}>
-                <button onClick={onUserClick} className={styles["card-btn"]}>
-                  <Link to="user">User </Link>
-                  <span>&rarr;</span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className={styles["grid-item"]}>
-            <div className={styles.card}>
-              <img
-                className={styles["card-img"]}
-                src={docImage}
-                alt="Grand Canyon"
-              />
-              <div className={styles["card-content"]}>
-                <button onClick={onDocClick} className={styles["card-btn"]}>
-                  <Link to="doc">Doc </Link> <span>&rarr;</span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className={styles["grid-item"]}>
-            <div className={styles.card}>
-              <img
-                className={styles["card-img"]}
-                src={analyticsImage}
-                alt="Analytics"
-              />
-              <div className={styles["card-content"]}>
-                <button
-                  onClick={onAnalyticsClick}
-                  className={styles["card-btn"]}
-                >
-                  <Link to="analytics">Analytics </Link> <span>&rarr;</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className={styles.b}>
-        <div className={styles["grid-item"]}>
-          <div className={styles.card}>
-            <img
-              className={styles["card-img"]}
-              src={taggedDocImage}
-              alt="Tagged docs"
-            />
-            <div className={styles["card-content"]}>
-              <button onClick={onTaggedClick} className={styles["card-btn"]}>
-                Tagged Doc <span>&rarr;</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <>
+      <AppBar position="sticky">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Dashboard
+          </Typography>
+          <Button onClick={onLogout} color="inherit">
+            Logout
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <Box
+        sx={{
+          height: 18,
+        }}
+      />
+      <Grid container>
+        <Grid item xs={12} sm={6} xl={4} lg={4} md={6}>
+          <CardButton
+            onTap={onUserClick}
+            label="User"
+            image={userImage}
+            alt="user button"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} xl={4} lg={4} md={6}>
+          <CardButton
+            onTap={onDocClick}
+            label="Doc"
+            image={docImage}
+            alt="doc button"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} xl={4} lg={4} md={6}>
+          <CardButton
+            onTap={onAnalyticsClick}
+            label="Analytics"
+            image={analyticsImage}
+            alt="analytics button"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} xl={12} lg={12} md={6}>
+          <CardButton
+            onTap={onTaggedClick}
+            label="Tagged POS"
+            image={taggedDocImage}
+            alt="tagged pos doc button"
+          />
+        </Grid>
+      </Grid>
+    </>
   );
 }

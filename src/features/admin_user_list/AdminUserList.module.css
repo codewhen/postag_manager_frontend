@@ -26,10 +26,6 @@
 }
 
 @media only screen and (max-width: 60em) {
-  body {
-    padding: 3rem;
-  }
-
   .user {
     grid-template-columns: auto;
     grid-gap: 3rem;
