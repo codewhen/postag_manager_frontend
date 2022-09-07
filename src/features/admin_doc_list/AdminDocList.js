@@ -1,10 +1,21 @@
+import {
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Portal } from "react-portal";
 import { useNavigate } from "react-router-dom";
 import { BounceLoader } from "react-spinners";
+import CustomAppBar from "../../core/components/appbar/AppBar";
 import { baseUrl } from "../../core/config/config";
+import DocIcon from "@mui/icons-material/FilePresent";
 
 export default function AdminDocList() {
   const navigate = useNavigate();
@@ -44,22 +55,36 @@ export default function AdminDocList() {
 
   return (
     <>
-      <h1>docs</h1>
-      {docs.map((e) => {
-        return (
-          <>
-            <button
-              onClick={() => buttonClick(e._id)}
-              style={{
-                padding: 8,
-                margin: 4,
-              }}
-            >
-              {e.docName}
-            </button>
-          </>
-        );
-      })}
+      <CustomAppBar />
+      <Typography
+        variant="h5"
+        component="h2"
+        style={{
+          textDecoration: "underline",
+          marginLeft: 18,
+          marginTop: 18,
+          marginBottom: 18,
+        }}
+      >
+        Uploaded Docs List:{" "}
+      </Typography>
+      <List>
+        {docs.map((e) => {
+          return (
+            <>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => buttonClick(e._id)}>
+                  <ListItemIcon>
+                    <DocIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={e.docName} />
+                </ListItemButton>
+              </ListItem>
+              <Divider variant="inset" component="li" />
+            </>
+          );
+        })}
+      </List>
       {isLoading && (
         <Portal node={document && document.getElementById("loader")}>
           <div className="loader-context">
