@@ -33,7 +33,7 @@ export default function AdminDashboard() {
 
   return (
     <>
-      <CustomAppBar />
+      <CustomAppBar shouldBack={false} />
       <Box
         sx={{
           height: 18,
