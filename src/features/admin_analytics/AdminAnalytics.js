@@ -1,12 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { Portal } from "react-portal";
+import { BounceLoader } from "react-spinners";
 import { baseUrl } from "../../core/config/config";
 import styles from "./AdminAnalytics.module.css";
 
 export default function AdminAnalytics() {
+  const [isLoading, setisLoading] = useState(true);
+
   const getAnalyticsUserWise = async () => {
     try {
+      setisLoading(true);
       const response = await axios.get(`${baseUrl}doc/analytics/userwise`, {
         headers: {
           "Content-Type": "application/json",
@@ -14,17 +19,19 @@ export default function AdminAnalytics() {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      setisLoading(false);
       console.log(response);
       if (response.data.message) {
         toast.error(response.data.message);
         return;
       }
-
       setanalytics(response.data.analytics);
     } catch (err) {
+      setisLoading(false);
       console.log(err);
     }
   };
+
   useEffect(() => {
     getAnalyticsUserWise();
   }, []);
@@ -34,10 +41,6 @@ export default function AdminAnalytics() {
   return (
     <div>
       {analytics.map((e) => {
-        if (!e || !e._id) {
-          return <></>;
-        }
-
         return (
           <>
             <h2 className={styles.name}>
@@ -61,6 +64,13 @@ export default function AdminAnalytics() {
           </>
         );
       })}
+      {isLoading && (
+        <Portal node={document && document.getElementById("loader")}>
+          <div className="loader-context">
+            <BounceLoader color={"#ffffff"} loading={true} size={60} />
+          </div>
+        </Portal>
+      )}
     </div>
   );
 }

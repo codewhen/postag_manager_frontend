@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
@@ -9,15 +9,22 @@ export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
+  const [isloading, setisloading] = useState(false);
+
   const onLogin = async (e) => {
     e.preventDefault();
+    if (isloading) {
+      return;
+    }
     try {
+      setisloading(true);
       const email = emailRef.current.value;
       const password = passwordRef.current.value;
       const response = await axios.post(`${baseUrl}auth/login`, {
         email: email,
         password: password,
       });
+      setisloading(false);
 
       console.log(response);
 
@@ -34,6 +41,7 @@ export default function Login() {
       }
       navigate("/");
     } catch (err) {
+      setisloading(false);
       console.log(err);
     }
   };
@@ -122,7 +130,9 @@ export default function Login() {
               </svg>
             </div>
           </div>
-          <button type="submit">Log in</button>
+          <button type="submit">
+            {isloading ? "Logging in..." : "Log in"}
+          </button>
         </form>
       </div>
     </div>

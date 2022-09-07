@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { Portal } from "react-portal";
 import { useNavigate } from "react-router-dom";
+import { BounceLoader } from "react-spinners";
 import userImage from "../../assets/images/rome.jpg";
 import { baseUrl } from "../../core/config/config";
 import styles from "./AdminUserList.module.css";
@@ -19,9 +21,11 @@ export default function AdminUserList() {
   }, [navigate]);
 
   const [users, setUsers] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
 
   const getAllUsers = async () => {
     try {
+      setisLoading(true);
       const response = await axios.get(`${baseUrl}users/all`, {
         headers: {
           "Content-Type": "application/json",
@@ -30,12 +34,14 @@ export default function AdminUserList() {
         },
       });
       console.log(response);
+      setisLoading(false);
       if (response.data.message) {
         toast.error(response.data.message);
         return;
       }
       setUsers(response.data.users);
     } catch (err) {
+      setisLoading(false);
       console.log(err);
     }
   };
@@ -85,6 +91,13 @@ export default function AdminUserList() {
           </div>
         </div>
       </div>
+      {isLoading && (
+        <Portal node={document && document.getElementById("loader")}>
+          <div className="loader-context">
+            <BounceLoader color={"#ffffff"} loading={true} size={60} />
+          </div>
+        </Portal>
+      )}
     </div>
   );
 }

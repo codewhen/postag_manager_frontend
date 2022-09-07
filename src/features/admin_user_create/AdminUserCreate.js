@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
@@ -8,6 +8,7 @@ import styles from "./AdminUserCreate.module.css";
 export default function AdminUserCreate() {
   const formRef = useRef();
   const navigate = useNavigate();
+  const [isLoading, setisLoading] = useState(false);
 
   useEffect(() => {
     const isAdmin = localStorage.getItem("isAdmin");
@@ -20,6 +21,10 @@ export default function AdminUserCreate() {
   const onCreate = async (e) => {
     try {
       e.preventDefault();
+      if (isLoading) {
+        return;
+      }
+      setisLoading(true);
       const name = formRef.current[0].value;
       const email = formRef.current[1].value;
       const password = formRef.current[2].value;
@@ -38,6 +43,7 @@ export default function AdminUserCreate() {
           },
         }
       );
+      setisLoading(false);
       console.log(response);
       if (response.status !== 200 && response.data.message) {
         toast.error(response.data.message);
@@ -46,6 +52,7 @@ export default function AdminUserCreate() {
       toast.success(`Successfully created new user`);
       navigate("../admin");
     } catch (err) {
+      setisLoading(false);
       console.log(err);
     }
   };
@@ -89,7 +96,7 @@ export default function AdminUserCreate() {
             name="button"
             value="Submit"
           >
-            Create
+            {isLoading ? "Creating..." : "Create"}
           </button>
         </form>
       </div>

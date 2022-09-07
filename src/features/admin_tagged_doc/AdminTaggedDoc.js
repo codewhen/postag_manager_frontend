@@ -1,11 +1,14 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { Portal } from "react-portal";
 import { useNavigate, useParams } from "react-router-dom";
+import { BounceLoader } from "react-spinners";
 import { baseUrl } from "../../core/config/config";
 
 export default function AdminTaggedDoc(props) {
   const [possedDoc, setPossedDoc] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
 
   const { id } = useParams();
 
@@ -13,8 +16,10 @@ export default function AdminTaggedDoc(props) {
 
   const getPossed = useCallback(async () => {
     try {
+      setisLoading(true);
       const response = await axios.post(`${baseUrl}doc/rearrange/${id}`);
       console.log(response);
+      setisLoading(false);
       if (response.data.message) {
         toast.error(response.data.message);
         return;
@@ -23,6 +28,7 @@ export default function AdminTaggedDoc(props) {
       setPossedDoc([response.data]);
     } catch (err) {
       console.log(err);
+      setisLoading(false);
     }
   }, [id]);
 
@@ -48,6 +54,13 @@ export default function AdminTaggedDoc(props) {
           </>
         );
       })}
+      {isLoading && (
+        <Portal node={document && document.getElementById("loader")}>
+          <div className="loader-context">
+            <BounceLoader color={"#ffffff"} loading={true} size={60} />
+          </div>
+        </Portal>
+      )}
     </>
   );
 }
