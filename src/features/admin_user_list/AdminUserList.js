@@ -48,6 +48,34 @@ export default function AdminUserList() {
     }
   };
 
+  const deleteUser = async (id) => {
+    try {
+      setisLoading(true);
+      const response = await axios.delete(`${baseUrl}users/id/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      // console.log(response);
+      setisLoading(false);
+      if (response.data.message) {
+        toast.error(response.data.message);
+        return;
+      }
+      setUsers((users) => {
+        const newUsers = [...users];
+        console.log(newUsers);
+        var filteredArray = newUsers.filter((e) => e._id !== id);
+        return filteredArray;
+      });
+    } catch (err) {
+      setisLoading(false);
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <CustomAppBar />
@@ -74,6 +102,7 @@ export default function AdminUserList() {
                   <Typography variant="h6">{e.name}</Typography>
                   <Typography variant="subtitle1">{e.email}</Typography>
                   <Button
+                    onClick={() => deleteUser(e._id)}
                     variant="outlined"
                     style={{
                       marginLeft: "auto",
