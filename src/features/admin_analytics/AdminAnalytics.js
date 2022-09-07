@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Portal } from "react-portal";
 import { BounceLoader } from "react-spinners";
+import CustomAppBar from "../../core/components/appbar/AppBar";
 import { baseUrl } from "../../core/config/config";
 import styles from "./AdminAnalytics.module.css";
 
@@ -40,6 +41,7 @@ export default function AdminAnalytics() {
 
   return (
     <div>
+      <CustomAppBar />
       {analytics.map((e) => {
         return (
           <>
