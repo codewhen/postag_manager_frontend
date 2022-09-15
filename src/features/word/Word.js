@@ -1,7 +1,9 @@
+import { Box } from "@mui/material";
 import axios from "axios";
 import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
+import CustomAppBar from "../../core/components/appbar/AppBar";
 import { baseUrl } from "../../core/config/config";
 import { posTag } from "../../shared/sharingVar";
 import WordTile from "./components/WordTile";
@@ -42,6 +44,8 @@ export default function Word() {
 
   return (
     <div className="word-root">
+      <CustomAppBar label="User Panel" />
+      <Box sx={{ height: 8 }} />
       <div className="bs">
         {data.map((e, i) => {
           if (punctuation.includes(e)) {

@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import BackIcon from "@mui/icons-material/ArrowBackIosNew";
 
-export default function CustomAppBar({ shouldBack = true }) {
+export default function CustomAppBar({ label, shouldBack = true }) {
   const navigate = useNavigate();
   const onLogout = (e) => {
     localStorage.clear();
@@ -25,7 +25,7 @@ export default function CustomAppBar({ shouldBack = true }) {
           </IconButton>
         )}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Dashboard
+          {label != null ? label : "Dashboard"}
         </Typography>
         <Button onClick={onLogout} color="inherit">
           Logout

@@ -1,9 +1,11 @@
+import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Portal } from "react-portal";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BounceLoader } from "react-spinners";
+import CustomAppBar from "../../core/components/appbar/AppBar";
 import { baseUrl } from "../../core/config/config";
 import { posTag } from "../../shared/sharingVar";
 
@@ -105,6 +107,8 @@ export default function Sentence() {
 
   return (
     <div className="word-root">
+      <CustomAppBar label="User Panel" shouldBack={false} />
+      <Box sx={{ height: 8 }} />
       <div className="bs">
         <div className="elements">
           {output.map((e, i) => {
