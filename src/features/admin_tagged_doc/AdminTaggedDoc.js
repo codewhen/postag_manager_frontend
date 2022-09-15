@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -43,6 +44,17 @@ export default function AdminTaggedDoc(props) {
     getPossed();
   }, [getPossed, navigate]);
 
+  const downloadTxtFile = () => {
+    const element = document.createElement("a");
+    const file = new Blob([possedDoc.map((e) => e.outputStr)], {
+      type: "text/plain",
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = "postag.txt";
+    document.body.appendChild(element);
+    element.click();
+  };
+
   return (
     <>
       <CustomAppBar />
@@ -73,6 +85,25 @@ export default function AdminTaggedDoc(props) {
               output
             </span>
             <p>{e.outputStr}</p>
+            <div
+              style={{
+                margin: "10px 16px",
+              }}
+            >
+              <Button
+                disabled={
+                  possedDoc.filter((e) => e.outputStr.length > 0).length === 0
+                }
+                sx={{
+                  height: 50,
+                }}
+                fullWidth
+                variant="contained"
+                onClick={downloadTxtFile}
+              >
+                Download
+              </Button>
+            </div>
           </>
         );
       })}
