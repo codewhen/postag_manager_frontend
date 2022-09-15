@@ -41,28 +41,31 @@ export default function Word() {
   };
 
   return (
-    <div className="bs">
-      {data.map((e, i) => {
-        if (punctuation.includes(e)) {
-          visited[i] = true;
-          return <div key={i}></div>;
-        }
-        return (
-          <WordTile
-            key={i}
-            label={e}
-            posChange={(pos) => {
-              wordsPOS[i] = wordsPOS[i].split("\\")[0] + "\\" + pos;
-              visited[i] = true;
-              console.log(wordsPOS);
-            }}
-          />
-        );
-      })}
-      <div className="submitBtn">
-        <button className={`dropbtn`} onClick={onDoneClick}>
-          Done
-        </button>
+    <div className="word-root">
+      <div className="bs">
+        {data.map((e, i) => {
+          if (punctuation.includes(e)) {
+            visited[i] = true;
+            return <div key={i}></div>;
+          }
+          return (
+            <WordTile
+              key={i}
+              label={e}
+              posChange={(pos) => {
+                wordsPOS[i] = wordsPOS[i].split("\\")[0] + pos;
+                wordsPOS[i] = wordsPOS[i].split("\\null")[0];
+                visited[i] = true;
+                console.log(wordsPOS);
+              }}
+            />
+          );
+        })}
+        <div className="submitBtn">
+          <button className={`dropbtn`} onClick={onDoneClick}>
+            Done
+          </button>
+        </div>
       </div>
     </div>
   );

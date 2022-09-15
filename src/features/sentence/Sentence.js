@@ -104,41 +104,43 @@ export default function Sentence() {
   };
 
   return (
-    <div className="bs">
-      <div className="elements">
-        {output.map((e, i) => {
-          return (
-            <div key={i} className="card">
-              <div className="left">
-                <p>{e}</p>
+    <div className="word-root">
+      <div className="bs">
+        <div className="elements">
+          {output.map((e, i) => {
+            return (
+              <div key={i} className="card">
+                <div className="left">
+                  <p>{e}</p>
+                </div>
+                <div className="right">
+                  <button
+                    className={`btn-select ${posTag.has(i) ? "filled" : ""}`}
+                    type="submit"
+                    name="button"
+                    onClick={() => onSubmit(e, i)}
+                  >
+                    {posTag.has(i) && "Selected"}
+                    {!posTag.has(i) && "Select"}
+                  </button>
+                </div>
               </div>
-              <div className="right">
-                <button
-                  className={`btn-select ${posTag.has(i) ? "filled" : ""}`}
-                  type="submit"
-                  name="button"
-                  onClick={() => onSubmit(e, i)}
-                >
-                  {posTag.has(i) && "Selected"}
-                  {!posTag.has(i) && "Select"}
-                </button>
-              </div>
+            );
+          })}
+        </div>
+        <div className="submitBtn">
+          <button className={`dropbtn`} onClick={onDone}>
+            Done
+          </button>
+        </div>
+        {isLoading && (
+          <Portal node={document && document.getElementById("loader")}>
+            <div className="loader-context">
+              <BounceLoader color={"#ffffff"} loading={true} size={60} />
             </div>
-          );
-        })}
+          </Portal>
+        )}
       </div>
-      <div className="submitBtn">
-        <button className={`dropbtn`} onClick={onDone}>
-          Done
-        </button>
-      </div>
-      {isLoading && (
-        <Portal node={document && document.getElementById("loader")}>
-          <div className="loader-context">
-            <BounceLoader color={"#ffffff"} loading={true} size={60} />
-          </div>
-        </Portal>
-      )}
     </div>
   );
 }

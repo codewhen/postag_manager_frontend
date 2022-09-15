@@ -13,6 +13,10 @@ export default function AssignFetch() {
 
   const fetchAssigned = useCallback(async () => {
     try {
+      if (!localStorage.getItem("token")) {
+        navigate("login");
+        return;
+      }
       setIsEmpty(false);
       const response = await axios.get(`${baseUrl}doc/assigned/self`, {
         headers: {

@@ -67,7 +67,7 @@ textarea {
     padding: 9vw 0vw 9vw 0vw;
   }
 
-  body {
+  .word-root {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -171,8 +171,6 @@ p {
 .word-card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  width: 30vw;
-  margin: 3vw 5vw 0vw 5vw;
   background: #fff;
   border-radius: 10px;
   display: flex;
@@ -205,9 +203,12 @@ p {
   background-color: #e66465 !important;
 }
 
+.submitBtn {
+  margin: 30px;
+}
 .submitBtn .dropbtn {
-  margin: 30px 5vw;
-  width: 90vw;
+  width: 100%;
+  border-radius: 15px;
 }
 
 /* Dropdown button on hover  */
