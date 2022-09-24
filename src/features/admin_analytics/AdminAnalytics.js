@@ -1,3 +1,4 @@
+import { Tabs, TabPanel, Tab } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -9,6 +10,7 @@ import styles from "./AdminAnalytics.module.css";
 
 export default function AdminAnalytics() {
   const [isLoading, setisLoading] = useState(true);
+  const [selectedTabIndex, setSelectedTabIndex] = useState(1);
 
   const getAnalyticsUserWise = async () => {
     try {
@@ -43,13 +45,33 @@ export default function AdminAnalytics() {
   return (
     <div>
       <CustomAppBar />
-      {analytics.map((e) => {
+      <Tabs
+        value={selectedTabIndex}
+        onChange={(event, newValue) => {
+          console.log(newValue);
+          setSelectedTabIndex(newValue);
+        }}
+        variant="scrollable"
+        scrollButtons={false}
+      >
+        {analytics.map((e, i) => {
+          return (
+            <Tab
+              value={i}
+              label={`${
+                e && e._id && e._id.user ? e._id.user.name : "Unknown user"
+              } (
+                ${e.input.length})`}
+            ></Tab>
+          );
+        })}
+      </Tabs>
+      {analytics.map((e, i) => {
+        if (i !== selectedTabIndex) {
+          return <></>;
+        }
         return (
           <>
-            <h2 className={styles.name}>
-              {e && e._id && e._id.user ? e._id.user.name : "Unknown user"} (
-              {e.input.length})
-            </h2>
             {e.input.map((e) => {
               return (
                 <>
