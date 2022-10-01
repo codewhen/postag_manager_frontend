@@ -6,10 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../core/config/config";
 import UploadIcon from "@mui/icons-material/Upload";
 import CustomAppBar from "../../core/components/appbar/AppBar";
+import Docxtemplater from "docxtemplater";
+import PizZip from "pizzip";
+import { Portal } from "react-portal";
+import { BounceLoader } from "react-spinners";
 
 export default function AdminDoc() {
   const [file, setFile] = useState();
   const [fileName, setFileName] = useState();
+  const [isLoading, setisLoading] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +28,7 @@ export default function AdminDoc() {
 
   const publish = async (e) => {
     try {
+      setisLoading(true);
       const response = await axios.post(
         `${baseUrl}doc/add`,
         {
@@ -59,8 +66,11 @@ export default function AdminDoc() {
         }
       );
 
+      setisLoading(false);
+
       navigate("/admin", { replace: true });
     } catch (err) {
+      setisLoading(false);
       toast.error("Error publishing");
       console.log(err);
     }
@@ -76,22 +86,37 @@ export default function AdminDoc() {
     const file = e.target.files[0];
 
     console.log(file);
-    const { name } = file;
+    const { name, type } = file;
 
     setFileName(name);
 
     const reader = new FileReader();
+
     reader.onload = (evt) => {
       if (!evt?.target?.result) {
         return;
       }
       const { result } = evt.target;
-
-      console.log(result);
-
-      setFile(result);
+      if (type !== "text/plain") {
+        var doc = new Docxtemplater(new PizZip(result), {
+          delimiters: {
+            start: "12op1j2po1j2poj1po",
+            end: "op21j4po21jp4oj1op24j",
+          },
+        });
+        var text = doc.getFullText();
+        console.log(text);
+        setFile(text);
+      } else {
+        console.log(result);
+        setFile(result);
+      }
     };
-    reader.readAsText(file, "utf-8");
+    if (type === "text/plain") {
+      reader.readAsText(file, "utf-8");
+    } else {
+      reader.readAsBinaryString(file);
+    }
   };
 
   return (
@@ -122,7 +147,7 @@ export default function AdminDoc() {
             {!file && "Upload file for POS Tag"}
             <input
               type="file"
-              accept=".txt"
+              accept="text/plain, .docx, .doc"
               hidden
               onChange={handleFileChange}
             />
@@ -152,6 +177,13 @@ export default function AdminDoc() {
           publish
         </Button>
       </Container>
+      {isLoading && (
+        <Portal node={document && document.getElementById("loader")}>
+          <div className="loader-context">
+            <BounceLoader color={"#ffffff"} loading={true} size={60} />
+          </div>
+        </Portal>
+      )}
     </>
   );
 }
