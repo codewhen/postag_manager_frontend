@@ -57,9 +57,10 @@ export default function AdminAnalytics() {
         {analytics.map((e, i) => {
           return (
             <Tab
+              key={i}
               value={i}
               label={`${
-                e && e._id && e._id.user ? e._id.user.name : "Unknown user"
+                e && e._id && e._id.user ? e._id.user.name : "Not Assigned"
               } (
                 ${e.input.length})`}
             ></Tab>
@@ -68,13 +69,13 @@ export default function AdminAnalytics() {
       </Tabs>
       {analytics.map((e, i) => {
         if (i !== selectedTabIndex) {
-          return <></>;
+          return <div key={i}></div>;
         }
         return (
-          <>
-            {e.input.map((e) => {
+          <div key={i}>
+            {e.input.map((e, i) => {
               return (
-                <>
+                <div key={i}>
                   <p className={styles.labels} style={{ paddingTop: 12 }}>
                     Original
                   </p>
@@ -83,10 +84,10 @@ export default function AdminAnalytics() {
                   <p className={styles.main}>
                     {e.output ? e.output : "Yet to submit"}
                   </p>
-                </>
+                </div>
               );
             })}
-          </>
+          </div>
         );
       })}
       {isLoading && (
